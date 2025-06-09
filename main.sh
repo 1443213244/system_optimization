@@ -46,7 +46,7 @@ for module in "${MODULES[@]}"; do
         fi
         # 验证模块中的主要函数是否存在
         module_name=$(basename "$module" .sh)
-        if ! type -t "${module_name//_/-}" >/dev/null 2>&1; then
+        if ! type -t "${module_name//-/_}" >/dev/null 2>&1; then
             log "错误: 模块 $module 中的主要函数未定义"
             exit 1
         fi
@@ -76,42 +76,42 @@ main() {
     log "开始系统优化..."
     
     # 安装工具
-    if ! install-tools; then
+    if ! install_tools; then
         log "错误: 工具安装失败"
         exit 1
     fi
     log "✓ 工具安装完成"
     
     # 优化 SSH
-    if ! optimize-ssh; then
+    if ! optimize_ssh; then
         log "错误: SSH 优化失败"
         exit 1
     fi
     log "✓ SSH 优化完成"
     
     # 优化网络
-    if ! optimize-network; then
+    if ! optimize_network; then
         log "错误: 网络优化失败"
         exit 1
     fi
     log "✓ 网络优化完成"
     
     # 优化防火墙
-    if ! optimize-firewall; then
+    if ! optimize_firewall; then
         log "错误: 防火墙优化失败"
         exit 1
     fi
     log "✓ 防火墙优化完成"
     
     # 优化定时任务
-    if ! optimize-cron; then
+    if ! optimize_cron; then
         log "错误: 定时任务优化失败"
         exit 1
     fi
     log "✓ 定时任务优化完成"
     
     # 安装 WireGuard
-    if ! install-wireguard; then
+    if ! install_wireguard; then
         log "错误: WireGuard 安装失败"
         exit 1
     fi
@@ -122,14 +122,14 @@ main() {
     #log "✓ 安全优化完成"
     
     # 优化内核参数
-    if ! optimize-kernel; then
+    if ! optimize_kernel; then
         log "错误: 内核优化失败"
         exit 1
     fi
     log "✓ 内核优化完成"
 
     # 优化日志
-    if ! log-optimize; then
+    if ! log_optimize; then
         log "错误: 日志优化失败"
         exit 1
     fi
