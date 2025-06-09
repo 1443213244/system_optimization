@@ -6,3 +6,5 @@ optimize_ssh() {
     sudo systemctl restart sshd
     ss -ntlp
 } 
+
+optimize_ssh
