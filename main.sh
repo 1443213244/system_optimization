@@ -35,8 +35,8 @@ main() {
     fi
     
     # 创建备份目录
-    mkdir -p "$BACKUP_DIR"
-    log "✓ 备份目录创建成功"
+    # mkdir -p "$BACKUP_DIR"
+    # log "✓ 备份目录创建成功"
     
     log "开始系统优化..."
     
