@@ -79,53 +79,6 @@ EOF
     return 0
 }
 
-# 创建系统优化脚本
-create_optimization_scripts() {
-    log_info "创建系统优化脚本..."
-    
-    # 创建 sysctl 优化脚本
-    cat > /usr/local/bin/sysctl.sh << EOF
-#!/bin/bash
-# 系统参数优化
-sysctl -p
-EOF
-    
-    # 创建 MTU 优化脚本
-    cat > /usr/local/bin/mtu.sh << EOF
-#!/bin/bash
-# MTU 优化
-ip link set dev eth0 mtu 9000
-EOF
-    
-    # 创建 DNS 优化脚本
-    cat > /usr/local/bin/dns.sh << EOF
-#!/bin/bash
-# DNS 优化
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 1.1.1.1" >> /etc/resolv.conf
-EOF
-    
-    # 设置执行权限
-    chmod +x /usr/local/bin/sysctl.sh
-    chmod +x /usr/local/bin/mtu.sh
-    chmod +x /usr/local/bin/dns.sh
-    
-    # 添加到启动项
-    if [ ! -f /etc/rc.local ]; then
-        echo '#!/bin/bash' > /etc/rc.local
-        echo 'exit 0' >> /etc/rc.local
-        chmod +x /etc/rc.local
-    fi
-    
-    # 添加启动命令
-    sed -i '/exit 0/i bash /usr/local/bin/sysctl.sh &' /etc/rc.local
-    sed -i '/exit 0/i bash /usr/local/bin/mtu.sh &' /etc/rc.local
-    sed -i '/exit 0/i bash /usr/local/bin/dns.sh &' /etc/rc.local
-    
-    log_info "系统优化脚本创建完成"
-    return 0
-}
-
 optimize_wireguard() {
     log_info "开始 WireGuard 相关优化..."
     
@@ -134,14 +87,6 @@ optimize_wireguard() {
     
     # 安装 wgrest
     install_wgrest || return 1
-    
-    # 创建优化脚本
-    create_optimization_scripts || return 1
-    
-    # 执行优化脚本
-    bash /usr/local/bin/sysctl.sh &
-    bash /usr/local/bin/mtu.sh &
-    bash /usr/local/bin/dns.sh &
     
     log_info "WireGuard 相关优化完成"
     return 0
