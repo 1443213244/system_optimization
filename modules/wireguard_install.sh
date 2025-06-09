@@ -1,4 +1,5 @@
 #!/bin/bash
+source modules/log.sh
 
 install_wireguard() {
     log_info "开始安装 WireGuard..."
