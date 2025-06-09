@@ -1,4 +1,5 @@
 #!/bin/bash
+source modules/log.sh
 
 optimize_kernel() {
     #超级安全的基础优化
