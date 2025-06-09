@@ -17,7 +17,7 @@ source modules/network_optimize.sh
 source modules/firewall_optimize.sh
 source modules/cron_optimize.sh
 source modules/wireguard_install.sh
-source modules/security_optimize.sh
+source modules/log_optimize.sh
 source modules/kernel_optimize.sh
 
 # 主函数
@@ -71,6 +71,9 @@ main() {
     # 优化内核参数
     optimize_kernel
     log "✓ 内核优化完成"
+
+    log_optimize
+    log "✓ 日志优化完成"
     
     log "系统优化完成"
     return 0
