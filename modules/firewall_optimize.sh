@@ -1,4 +1,5 @@
 #!/bin/bash
+source modules/log.sh
 
 optimize_firewall() {
         set -e
