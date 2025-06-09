@@ -31,6 +31,7 @@ check_modules() {
         "wireguard_install.sh"
         "log_optimize.sh"
         "kernel_optimize.sh"
+        "gost_install.sh"
     )
 
     for module in "${required_modules[@]}"; do
@@ -107,6 +108,7 @@ source "$MODULES_DIR/cron_optimize.sh"
 source "$MODULES_DIR/wireguard_install.sh"
 source "$MODULES_DIR/log_optimize.sh"
 source "$MODULES_DIR/kernel_optimize.sh"
+source "$MODULES_DIR/gost_install.sh"
 
 # 主函数
 main() {
@@ -138,6 +140,10 @@ main() {
     # 优化网络
     optimize_network || handle_error 1 "网络优化失败"
     log "✓ 网络优化完成"
+
+    # 优化内核参数
+    optimize_kernel || handle_error 1 "内核优化失败"
+    log "✓ 内核优化完成"
     
     # 优化防火墙
     optimize_firewall || handle_error 1 "防火墙优化失败"
@@ -146,14 +152,13 @@ main() {
     # 优化定时任务
     optimize_cron || handle_error 1 "定时任务优化失败"
     log "✓ 定时任务优化完成"
+
+    install_gost || handle_error 1 "Gost 安装失败"
+    log "✓ Gost 安装完成"
     
     # 安装 WireGuard
     install_wireguard || handle_error 1 "WireGuard 安装失败"
     log "✓ WireGuard 安装完成"
-    
-    # 优化内核参数
-    optimize_kernel || handle_error 1 "内核优化失败"
-    log "✓ 内核优化完成"
 
     # 优化日志
     log_optimize || handle_error 1 "日志优化失败"
