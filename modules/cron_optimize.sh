@@ -1,4 +1,5 @@
 #!/bin/bash
+source modules/log.sh
 
 optimize_cron() {
     log_info "开始优化系统定时任务..."
