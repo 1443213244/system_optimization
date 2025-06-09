@@ -26,7 +26,6 @@ check_module() {
 # 导入模块
 MODULES=(
     "modules/tools_install.sh"
-    "modules/system_update.sh"
     "modules/ssh_optimize.sh"
     "modules/network_optimize.sh"
     "modules/firewall_optimize.sh"
