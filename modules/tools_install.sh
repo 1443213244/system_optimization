@@ -31,9 +31,6 @@ TOOLS=(
 
 # 安装工具
 install_tools() {
-    echo "正在更新软件包列表..."
-    apt-get update
-    
     echo "正在安装工具..."
     for tool in "${TOOLS[@]}"; do
         echo "安装 $tool..."

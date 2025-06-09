@@ -40,10 +40,6 @@ main() {
     
     log "开始系统优化..."
     
-    # 执行系统更新
-    system_update
-    log "✓ 系统更新完成"
-    
     # 安装工具
     install_tools
     log "✓ 工具安装完成"
