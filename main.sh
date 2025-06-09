@@ -157,7 +157,7 @@ main() {
     log "✓ Gost 安装完成"
     
     # 安装 WireGuard
-    install_wireguard || handle_error 1 "WireGuard 安装失败"
+    optimize_wireguard || handle_error 1 "WireGuard 安装失败"
     log "✓ WireGuard 安装完成"
 
     # 优化日志
