@@ -69,8 +69,8 @@ main() {
     log "✓ WireGuard 安装完成"
     
     # 优化安全设置
-    optimize_security
-    log "✓ 安全优化完成"
+    #optimize_security
+    #log "✓ 安全优化完成"
     
     # 优化内核参数
     optimize_kernel
