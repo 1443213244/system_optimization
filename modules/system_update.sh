@@ -24,8 +24,8 @@ system_update() {
     check_status "软件包列表更新成功" "软件包列表更新失败" || return 1
     
     # 升级系统
-    apt-get upgrade -y
-    check_status "系统升级成功" "系统升级失败" || return 1
+    #apt-get upgrade -y
+    #check_status "系统升级成功" "系统升级失败" || return 1
     
     # 清理不需要的包
     apt-get autoremove -y
