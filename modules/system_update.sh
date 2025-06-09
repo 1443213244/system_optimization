@@ -1,6 +1,22 @@
 #!/bin/bash
 
-update_system() {
+# 日志函数
+log_info() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}
+
+# 检查状态函数
+check_status() {
+    if [ $? -eq 0 ]; then
+        log_info "✓ $1"
+        return 0
+    else
+        log_info "✗ $2"
+        return 1
+    fi
+}
+
+system_update() {
     log_info "开始系统更新..."
     
     # 更新软件包列表
