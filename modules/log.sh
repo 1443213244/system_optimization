@@ -27,8 +27,12 @@ log() {
     local timestamp=$(date +"${LOG_CONFIG[LOG_FORMAT]}")
     
     # 检查日志级别
-    if [ "${LOG_LEVELS[$level]}" -ge "${LOG_LEVELS[$CURRENT_LOG_LEVEL]}" ]; then
-        echo "[$timestamp] [$level] $message" | tee -a "$LOG_FILE"
+    if [ -n "${LOG_LEVELS[$level]}" ] && [ -n "${LOG_LEVELS[$CURRENT_LOG_LEVEL]}" ]; then
+        if [ "${LOG_LEVELS[$level]}" -ge "${LOG_LEVELS[$CURRENT_LOG_LEVEL]}" ]; then
+            echo "[$timestamp] [$level] $message" | tee -a "$LOG_FILE"
+        fi
+    else
+        echo "[$timestamp] [ERROR] 无效的日志级别: $level 或 $CURRENT_LOG_LEVEL" | tee -a "$LOG_FILE"
     fi
 }
 
