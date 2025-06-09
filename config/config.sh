@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # 系统配置
+declare -A SYSTEM_CONFIG
 SYSTEM_CONFIG=(
     ["TIMEZONE"]="Asia/Shanghai"
     ["BACKUP_DIR"]="/var/backups/system_optimization"
@@ -8,6 +9,7 @@ SYSTEM_CONFIG=(
 )
 
 # SSH 配置
+declare -A SSH_CONFIG
 SSH_CONFIG=(
     ["PORT"]="22"
     ["PERMIT_ROOT_LOGIN"]="no"

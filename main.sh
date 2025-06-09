@@ -35,12 +35,21 @@ MODULES=(
     "modules/kernel_optimize.sh"
 )
 
+# 确保所有模块都被正确加载
 for module in "${MODULES[@]}"; do
     if check_module "$module"; then
-        source "$module" || {
+        log "正在加载模块: $module"
+        # 使用 source 命令加载模块，并检查是否成功
+        if ! source "$module"; then
             log "错误: 无法加载模块 $module"
             exit 1
-        }
+        fi
+        # 验证模块中的主要函数是否存在
+        module_name=$(basename "$module" .sh)
+        if ! type -t "${module_name//_/-}" >/dev/null 2>&1; then
+            log "错误: 模块 $module 中的主要函数未定义"
+            exit 1
+        fi
     else
         exit 1
     fi
@@ -67,27 +76,45 @@ main() {
     log "开始系统优化..."
     
     # 安装工具
-    install_tools
+    if ! install-tools; then
+        log "错误: 工具安装失败"
+        exit 1
+    fi
     log "✓ 工具安装完成"
     
     # 优化 SSH
-    optimize_ssh
+    if ! optimize-ssh; then
+        log "错误: SSH 优化失败"
+        exit 1
+    fi
     log "✓ SSH 优化完成"
     
     # 优化网络
-    optimize_network
+    if ! optimize-network; then
+        log "错误: 网络优化失败"
+        exit 1
+    fi
     log "✓ 网络优化完成"
     
     # 优化防火墙
-    optimize_firewall
+    if ! optimize-firewall; then
+        log "错误: 防火墙优化失败"
+        exit 1
+    fi
     log "✓ 防火墙优化完成"
     
     # 优化定时任务
-    optimize_cron
+    if ! optimize-cron; then
+        log "错误: 定时任务优化失败"
+        exit 1
+    fi
     log "✓ 定时任务优化完成"
     
     # 安装 WireGuard
-    install_wireguard
+    if ! install-wireguard; then
+        log "错误: WireGuard 安装失败"
+        exit 1
+    fi
     log "✓ WireGuard 安装完成"
     
     # 优化安全设置
@@ -95,10 +122,17 @@ main() {
     #log "✓ 安全优化完成"
     
     # 优化内核参数
-    optimize_kernel
+    if ! optimize-kernel; then
+        log "错误: 内核优化失败"
+        exit 1
+    fi
     log "✓ 内核优化完成"
 
-    log_optimize
+    # 优化日志
+    if ! log-optimize; then
+        log "错误: 日志优化失败"
+        exit 1
+    fi
     log "✓ 日志优化完成"
     
     log "系统优化完成"
