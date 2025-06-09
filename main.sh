@@ -9,16 +9,43 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
 }
 
+# 检查模块文件是否存在并可执行
+check_module() {
+    local module="$1"
+    if [ ! -f "$module" ]; then
+        log "错误: 模块文件 $module 不存在"
+        return 1
+    fi
+    if [ ! -x "$module" ]; then
+        log "警告: 模块文件 $module 没有执行权限，尝试添加权限"
+        chmod +x "$module"
+    fi
+    return 0
+}
+
 # 导入模块
-source modules/tools_install.sh
-source modules/system_update.sh
-source modules/ssh_optimize.sh
-source modules/network_optimize.sh
-source modules/firewall_optimize.sh
-source modules/cron_optimize.sh
-source modules/wireguard_install.sh
-source modules/log_optimize.sh
-source modules/kernel_optimize.sh
+MODULES=(
+    "modules/tools_install.sh"
+    "modules/system_update.sh"
+    "modules/ssh_optimize.sh"
+    "modules/network_optimize.sh"
+    "modules/firewall_optimize.sh"
+    "modules/cron_optimize.sh"
+    "modules/wireguard_install.sh"
+    "modules/log_optimize.sh"
+    "modules/kernel_optimize.sh"
+)
+
+for module in "${MODULES[@]}"; do
+    if check_module "$module"; then
+        source "$module" || {
+            log "错误: 无法加载模块 $module"
+            exit 1
+        }
+    else
+        exit 1
+    fi
+done
 
 # 主函数
 main() {
