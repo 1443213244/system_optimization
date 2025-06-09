@@ -3,11 +3,6 @@
 install_wireguard() {
     log_info "开始安装 WireGuard..."
     
-    # 安装 WireGuard 工具
-    log_info "安装 WireGuard 工具..."
-    apt-get install -y wireguard
-    check_status "WireGuard 工具安装成功" "WireGuard 工具安装失败" || return 1
-    
     # 创建 WireGuard 配置目录
     mkdir -p /etc/wireguard
     
