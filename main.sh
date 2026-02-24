@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # 基本配置
-# 请在运行前设置环境变量: export GITHUB_TOKEN="your_token"
-GITHUB_TOKEN="${GITHUB_TOKEN:-}"
 BACKUP_DIR="/var/backups/system_optimization"
 LOG_FILE="/var/log/system_optimization.log"
 MODULES_DIR="modules"
