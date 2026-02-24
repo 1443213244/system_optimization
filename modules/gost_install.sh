@@ -3,7 +3,7 @@ source modules/log.sh
 
 install_gost(){
     log_info "下载 wgrest 二进制文件..."
-    git clone https://github.com/1443213244/EasyGost3.git
+    git clone https://${GITHUB_TOKEN}@github.com/1443213244/EasyGost3.git
     check_status "gost" "wgrest 二进制文件下载失败" || return 1
     
     cd EasyGost3 || {

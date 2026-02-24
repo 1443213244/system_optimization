@@ -18,7 +18,7 @@
 
 1. 克隆仓库：
 ```bash
-git clone https://github.com/yourusername/system_optimization.git
+git clone https://github.com/1443213244/system_optimization.git
 cd system_optimization
 ```
 
