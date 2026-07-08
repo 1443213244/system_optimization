@@ -5,9 +5,10 @@ optimize_cron() {
     log_info "开始优化系统定时任务..."
     
 
-    # 添加 GOST 服务重启任务（每48小时）
-    log_info "添加 GOST 服务重启任务..."
+    # 添加 GOST/GOST3 服务重启任务（每48小时）
+    log_info "添加 GOST/GOST3 服务重启任务..."
     (crontab -l 2>/dev/null; echo "0 0 */2 * * systemctl restart gost") | sort - | uniq - | crontab -
+    (crontab -l 2>/dev/null; echo "0 0 */2 * * systemctl restart gost3") | sort - | uniq - | crontab -
 
 
     #添加清理内存定时任务（每48小时）
