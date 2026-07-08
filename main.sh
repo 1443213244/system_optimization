@@ -153,8 +153,8 @@ main() {
     optimize_cron || handle_error 1 "定时任务优化失败"
     log "✓ 定时任务优化完成"
 
-    install_gost3 || handle_error 1 "Gost3 安装失败"
-    log "✓ Gost3 安装完成"
+    install_gost3 || handle_error 1 "Gost & Gost3 安装失败"
+    log "✓ Gost & Gost3 安装完成"
     
     # 安装 WireGuard
     optimize_wireguard || handle_error 1 "WireGuard 安装失败"
